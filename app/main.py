@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app.core.config import settings
 from app.db.init_db import init_db
 from app.api.v1.auth.endpoints import router as auth_router_v1
-
+from app.api.v2.auth.endpoints import router as auth_router_v2
 
 app = FastAPI(
     title="API con Versiones y Autenticación JWT en Cookies", 
@@ -20,6 +20,9 @@ app = FastAPI(
 
 # Irouters para API v1
 app.include_router(auth_router_v1, prefix="/api/v1/auth", tags=["Auth v1"])
+
+# routers para API v2
+app.include_router(auth_router_v2, prefix="/api/v2/auth", tags=["Auth v2"])
 
 # Crear las tablas en la base de datos
 init_db()

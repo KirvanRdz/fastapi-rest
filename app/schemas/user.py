@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, field_validator, Field
 import re
 
 # Modelos base
@@ -18,6 +18,9 @@ class UserBase(BaseModel):
 class UserV1(UserBase):
     pass
 
+class UserV2(UserBase):
+    age: int = Field(default=18, ge=18, description="La edad debe ser al menos 18 años.")
+
 
 # Modelos de respuesta
 class UserResponseBase(BaseModel):
@@ -27,3 +30,6 @@ class UserResponseBase(BaseModel):
 
 class UserResponseV1(UserResponseBase):
     pass
+
+class UserResponseV2(UserResponseBase):
+    age: int
