@@ -4,11 +4,15 @@ from app.db.session import get_db
 from app.schemas.user import UserV2, UserResponseV2
 from app.core.versionado import versioned
 from app.services.user_service import check_user_exists, create_user
+from app.core.docs import Docs
 
 router = APIRouter()
 
 @versioned(version="v2")
-@router.post("/register", status_code=status.HTTP_201_CREATED, response_model=UserResponseV2)
+@router.post("/register", 
+             status_code=status.HTTP_201_CREATED, 
+             response_model=UserResponseV2,
+             description=Docs.registerV2)
 def register_user_v2(user_data:UserV2, db=Depends(get_db)):
     
     # Verificar si el usuario ya existe

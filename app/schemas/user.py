@@ -19,7 +19,7 @@ class UserV1(UserBase):
     pass
 
 class UserV2(UserBase):
-    age: int = Field(default=18, ge=18, description="La edad debe ser al menos 18 años.")
+    age: int = Field(ge=18, description="La edad debe ser al menos 18 años.")
 
 
 # Modelos de respuesta
