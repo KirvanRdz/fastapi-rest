@@ -1,8 +1,17 @@
 from decouple import config
 
 class Settings:
-    # Configuración de la base de datos
-    DATABASE_URL = config("DATABASE_URL", default="sqlite:///./database.db")
+    # Configuración de entorno
+    ENVIRONMENT = config("ENVIRONMENT", default="development")  # Por defecto, desarrollo
+    
+    # Seleccionar la URL de la base de datos según el entorno
+    if ENVIRONMENT == "production":
+        DATABASE_URL = config("DATABASE_URL_PROD")
+    elif ENVIRONMENT == "testing":
+        DATABASE_URL = config("DATABASE_URL_TEST")
+    else:
+        DATABASE_URL = config("DATABASE_URL") 
+    
 
     # Configuración JWT
     SECRET_KEY = config("SECRET_KEY")

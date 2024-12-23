@@ -5,7 +5,7 @@ from app.db.session import Base
 from app.models.user import User 
 
 
-# Configuración para usar SQLite en memoria para las pruebas
+# Configuración para usar SQLite para las pruebas
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
