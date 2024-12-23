@@ -49,3 +49,30 @@ class LogoutResponse(BaseModel):
             ]
         }
     }
+
+# Respuesta de error para autenticación
+class ErrorAuthResponse(BaseModel):
+    detail: str
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "detail": "Credenciales Invalidas"
+                }
+            ]
+        }
+    }
+
+class ErrorTokenResponse(BaseModel):
+    detail: str
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "detail": "Access token invalido"
+                }
+            ]
+        }
+    }

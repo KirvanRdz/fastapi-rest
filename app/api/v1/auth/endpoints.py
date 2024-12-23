@@ -6,7 +6,7 @@ from app.core.auth import create_access_token, create_refresh_token, set_cookies
 from app.schemas.user import UserV1, UserResponseV1
 from app.schemas.auth import Login, RefreshTokenResponse, VerifyTokenResponse, LogoutResponse
 from app.services.user_service import check_user_exists, create_user, authenticate_user
-from app.utils.error_handling import raise_unauthorized_error
+from app.utils.error_handling import raise_unauthorized_error, response_unauthorized_error, response_token_error
 
 router = APIRouter()
 
@@ -22,7 +22,7 @@ def register_user(user_data: UserV1, db=Depends(get_db)):
     
     return db_user
 
-@router.post("/login", status_code=status.HTTP_200_OK, response_model=UserResponseV1 )
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=UserResponseV1, responses=response_unauthorized_error() )
 def login_user(user: Login, response: Response, db=Depends(get_db)):
     
     authenticated_user = authenticate_user(db, user)
@@ -43,7 +43,7 @@ def login_user(user: Login, response: Response, db=Depends(get_db)):
         "email": authenticated_user.email
     }
 
-@router.post("/refresh_token", status_code=status.HTTP_200_OK, response_model=RefreshTokenResponse)
+@router.post("/refresh_token", status_code=status.HTTP_200_OK, response_model=RefreshTokenResponse, responses=response_token_error())
 async def refresh_token(response: Response, refresh_token: str = Cookie(None)):
     
     # Verificar si se proporcionó el refresh token
@@ -68,7 +68,7 @@ async def refresh_token(response: Response, refresh_token: str = Cookie(None)):
     
     return {"message": "Access token renovado exitosamente"}
 
-@router.get("/verify_token", status_code=status.HTTP_200_OK, response_model=VerifyTokenResponse)
+@router.get("/verify_token", status_code=status.HTTP_200_OK, response_model=VerifyTokenResponse, responses=response_token_error())
 async def verify(access_token: str = Cookie(None)):
     
     if not access_token:
