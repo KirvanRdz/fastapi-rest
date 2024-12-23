@@ -1,9 +1,10 @@
-from app.schemas.user import  UserV1
+from app.schemas.user import  UserV1, UserV2
 
 # Decorador para manejar versiones
 def versioned(version: str):
     versions = {
         "v1": UserV1,
+        "v2": UserV2
     }
 
     def decorator(func):
