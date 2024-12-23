@@ -1,0 +1,21 @@
+# Ignorar archivos y directorios innecesarios para la construcción de la imagen
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar entornos virtuales
+.venv/
+env/
+venv/
+
+# Ignorar archivos de configuración locales
+*.env
+*.local
+
+# Ignorar archivos de bases de datos locales
+*.db
+
+# Ignorar archivos de control de versiones
+.git
+.gitignore
