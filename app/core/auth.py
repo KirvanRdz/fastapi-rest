@@ -53,3 +53,10 @@ def set_cookies(response: Response, access_token: str = None, refresh_token: str
             secure=secure_flag,
             samesite="Strict"
         )
+
+def verify_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.exceptions.PyJWTError as e:
+        return None
