@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from app.core.config import settings
 from app.db.init_db import init_db
+from app.api.v1.auth.endpoints import router as auth_router_v1
 
 
 app = FastAPI(
@@ -17,6 +18,8 @@ app = FastAPI(
     debug=settings.DEBUG
 )
 
+# Irouters para API v1
+app.include_router(auth_router_v1, prefix="/api/v1/auth", tags=["Auth v1"])
 
 # Crear las tablas en la base de datos
 init_db()
